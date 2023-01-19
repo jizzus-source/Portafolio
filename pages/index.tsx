@@ -198,6 +198,19 @@ const Home: NextPage<Props> = () => {
               </ListContent>
               <ListContent>
               <Image
+                src="/icons/profile.svg"
+                height={20}
+                width={20} 
+                alt="Your Name"
+                />
+              <a href='#skills'>
+              <TextComponent textType={TextType.HEADING_FIVE} alignment="left" color='white'>
+                Skills
+              </TextComponent>
+              </a>
+              </ListContent>
+              <ListContent>
+              <Image
                 src="/icons/cap.svg"
                 height={20}
                 width={20} 
@@ -304,7 +317,7 @@ const Home: NextPage<Props> = () => {
 
 
 
-          <PortfolioCardWhite>
+          <PortfolioCardWhite id='skills'>
             <PortfolioTitle>
               <TextComponent  textType={TextType.HEADING_TWO} alignment="left" color='black'>
                 My skills
