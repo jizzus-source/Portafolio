@@ -6,6 +6,10 @@ type Props = {
     textType: TextType;
     alignment?: string;
     color?: string;
+    display?: string;
+    gap?: string;
+    direction? :string;
+    content? :string;
 };
 
 export enum TextType {
@@ -76,8 +80,8 @@ line-height: 24px;
 `;
 export const BODY_MEDIUM_BIG = css`
 font-family: ${FONTFAMILIES.QUICKSAND};
-font-size: 18px;
-line-height: 28px;
+font-size: 16px;
+line-height: 24px;
 `;
 
 
@@ -115,6 +119,10 @@ const TextComponentContainer = styled.div.attrs((props: Props)=>props)`
 ${props=>textStyle(props.textType)}
 ${props=>props.alignment?`text-align: ${props.alignment}`:""};
 ${props=>props.color?`color: ${props.color}`:""};
+${props=>props.display?`display: ${props.display}`:""};
+${props=>props.direction?`flex-direction: ${props.direction}`:""};
+${props=>props.gap?`gap: ${props.gap}`:""};
+${props=>props.content?`justify-content: ${props.content}`:""};
 `;
 
 function textStyle(textType: TextType){
