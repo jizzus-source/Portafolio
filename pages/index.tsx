@@ -1,55 +1,111 @@
 
 import Image from 'next/image'
-
 import styled from "styled-components";
-import { SIZES } from '@/constants/constants';
+import { COLORS, SCREEN_SIZE_RANGES, SHADOWS, SIZES } from '@/constants/constants';
 import TextComponent, { TextType } from '@/constants/textcomponent';
 import { NextPage } from 'next';
 import { LinearProgress } from '@mui/material';
+import emailjs from 'emailjs-com';
+import Swal from 'sweetalert2';
+import { Button, Form, Input, TextArea } from 'semantic-ui-react';
+
 
 type Props = {};
 
 
 const MainScreen = styled.div`
-width:100%;
+width:100vw;
+display:flex;
+flex-direction: row;
+align-items: flex-start;
+background-color:	#F0F0F0;
+@media${SCREEN_SIZE_RANGES.MOBILE},${SCREEN_SIZE_RANGES.TABLET}
+{
+  width:100vw;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+`;
+const MainBody = styled.div`
+@media${SCREEN_SIZE_RANGES.TABLET},${SCREEN_SIZE_RANGES.MOBILE}{
+  display:flex;
+  flex-direction:column;
+  margin-top:3rem;
+  gap:2rem;
+  justify-content: space-around;
+  align-items: center;
+}
+@media${SCREEN_SIZE_RANGES.LAPTOP_LARGE}, ${SCREEN_SIZE_RANGES.LAPTOP_MEDIUM}{ 
+  width:80%;
+  display:flex;
+  flex-direction:column;
+  margin-top:3rem;
+  gap:2rem;
+  justify-content: space-around;
+  align-items: center;
+}
+`;
+const MenuContainer = styled.div.attrs((props: { open: boolean }) => props)`
+background-color:#1732b5;
+max-height:55vh;
+border-radius: ${SIZES.ONE};
+top: ${SIZES.FIVE};
+position:relative;
+@media${SCREEN_SIZE_RANGES.MOBILE}{
+  display:flex;
+  width: 80%;
+  justify-content: center;
+  flex-direction:column;
+}
+
+@media${SCREEN_SIZE_RANGES.TABLET}{
+  display:flex;
+  width: 30%;
+  position:relative;
+  justify-content: center;
+}
+@media${SCREEN_SIZE_RANGES.LAPTOP_MEDIUM},
+    ${SCREEN_SIZE_RANGES.LAPTOP_LARGE}{
+  width:20%;
+  justify-content: flex-start;
+  position:sticky;
+  top:50px;
+  left:80px;
+}
+`;
+const PortfolioContainer = styled.div`
+@media${SCREEN_SIZE_RANGES.TABLET}, ${SCREEN_SIZE_RANGES.MOBILE}{
+  display:flex;
+  flex-direction:column;
+  gap:4rem;
+  position:relative;
+  width:90vw;
+};
+@media${SCREEN_SIZE_RANGES.LAPTOP_LARGE},${SCREEN_SIZE_RANGES.LAPTOP_MEDIUM}{ 
+  display:flex;
+  flex-direction:column;
+  gap:4rem;
+  width:70%;
+  position:relative;
+};
+`;
+const MenuContent = styled.div`
 display:flex;
 flex-direction:column;
 align-items: center;
-background-color:	#F0F0F0;
-
-`;
-const MainBody = styled.div`
-width:80%;
-display:flex;
-flex-direction:row;
-margin-top:3rem;
-gap:2rem;
-
-`;
-const MenuContainer = styled.div`
-background-color:#1732b5;
-width:20%;
-border-radius: ${SIZES.ONE};
-max-height:55vh;
-position:sticky;
-top:80px;
-`;
-const PortfolioContainer = styled.div`
-display:flex;
-flex-direction:column;
-gap:4rem;
-width:70%;
-scroll-behavior: smooth !important;
-`;
-const MenuContent = styled.div`
-
-padding:20px 10px 10px 20px;
-display:flex;
-flex-direction:column;
-width:100%;
+@media${SCREEN_SIZE_RANGES.LAPTOP_MEDIUM},
+    ${SCREEN_SIZE_RANGES.LAPTOP_LARGE}{
+  padding:20px 10px 10px 20px;
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  align-items: flex-start;
+}
 `;
 const ListContainer = styled.div`
 margin-top:30px;
+
 `;
 const ListContent = styled.div`
 display:flex;
@@ -76,19 +132,38 @@ display:flex;
 flex-direction:row;
 justify-content: center;
 align-items: center;
-padding: 4rem 0 0 10px;
+padding: 2rem 0 0 10px;
 gap:2rem;
+
+`;
+const PortfolioWhiteContentWorks = styled.div`
+display:flex;
+flex-direction:row;
+justify-content: center;
+align-items: center;
+@media ${SCREEN_SIZE_RANGES.MOBILE}{
+  overflow:scroll;
+  align-items: center
+}
+
 `;
 const PortfolioCardWhite = styled.div`
 display:flex;
 border-radius: ${SIZES.ONE};
-height:70vh;
+height:78vh;
 flex-direction:column;
 background-color:white;
 box-shadow: 0px 0px 30px 0px #8c8c8c;
+@media${SCREEN_SIZE_RANGES.MOBILE}{
+  height:85vh;
+  
+}
 `;
 const PortfolioTitle = styled.div`
 padding: 2rem 0 0 3rem ;
+@media${SCREEN_SIZE_RANGES.MOBILE}{
+  position:center;
+}
 `;
 const TitleUnderlined = styled.section`
 content: "";
@@ -109,6 +184,10 @@ margin-top:10px;
 grid-template-columns: 32ch 32ch;
 justify-content: space-between;
 justify-items: stretch;
+@media${SCREEN_SIZE_RANGES.MOBILE}{
+  display:flex;
+  flex-direction:column;
+}
 `;
 const BottonContainer = styled.div`
 margin-top:40px;
@@ -120,7 +199,7 @@ align-items: center;
 gap:20px;
 `;
 const BottonBlue = styled.div`
-width:15%;
+width:13vw;
 height:30px;
 background-color:#3366ff;
 cursor:pointer;
@@ -128,16 +207,22 @@ display:flex;
 justify-content: center;
 align-items: center;
 border-radius: ${SIZES.EIGHT};
+@media ${SCREEN_SIZE_RANGES.MOBILE}{
+  width:30vw;
+}
 `;
 const BottonRed = styled.div`
 background-color:#ff4d4d;
-width:10%;
+width:10vw;
 height:30px;
 cursor:pointer;
 display:flex;
 justify-content: center;
 align-items: center;
 border-radius: ${SIZES.EIGHT};
+@media ${SCREEN_SIZE_RANGES.MOBILE}{
+  width:30vw;
+}
 `;
 const SkillData = styled.div`
 display:flex;
@@ -149,13 +234,61 @@ margin-top:1rem;
 display:flex;
 flex-direction:column;
 width:80%;
-`
+`;
+const WorksContainer = styled.div`
+display:flex;
+flex-direction:row;
+justify-content: center;
+flex-wrap: wrap;
+gap:20px;
+@media ${SCREEN_SIZE_RANGES.MOBILE}{
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  height:100%;
+  width:100vw;
+} 
+`;
+const WorksCard = styled.div`
+display:flex;
+flex-direction:column;
+width:40%;
+align-items: center;
+cursor:pointer;
+box-shadow: 2px 2px 4px rgba(0,0,0,.25);
+`;
+const SocialIcons = styled.div`
+display:flex;
+flex-direction:row;
+justify-content: space-evenly;
+cursor:pointer;
+height:30px;
+`;
+
 
 const Home: NextPage<Props> = () => {
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    emailjs.sendForm("service_yj2ghpd", "template_w2htxfs", e.currentTarget, "NAViQI5_yGCKMyR2Z")
+      .then((result) => {
+        console.log(result.text);
+        Swal.fire({
+          icon: "success",
+          title: "Message Sent Successfully"
+        })
+      }, (error) => {
+        console.log(error.text);
+        Swal.fire({
+          icon: "error",
+          title:" Ooops, something went wrong",
+          text: error.text,
+        })
+      });
+      e.currentTarget.reset()
+  };
   return (
     <MainScreen>
-      <MainBody>
-        <MenuContainer>
+      <MenuContainer>
           <MenuContent>
             <Image
             src="/icons/profile.svg"
@@ -163,10 +296,11 @@ const Home: NextPage<Props> = () => {
             width={40} 
             alt="Your Name"
             />
-            <TextComponent textType={TextType.HEADING_THREE} alignment="left" color='white'>
+
+            <TextComponent textType={TextType.HEADING_THREE}  color='white'>
             Jesus Pareja
             </TextComponent>
-            <TextComponent textType={TextType.BODY_MEDIUM} alignment="left" color='white'>
+            <TextComponent textType={TextType.BODY_MEDIUM}  color='white'>
             Web Developer
             </TextComponent>
             <ListContainer>
@@ -178,47 +312,36 @@ const Home: NextPage<Props> = () => {
                 alt="Your Name"
                 />
                 <a href='#home'>
-                <TextComponent textType={TextType.HEADING_FIVE} alignment="left" color='white'>
+                <TextComponent textType={TextType.HEADING_FIVE}  color='white'>
                 Home
               </TextComponent>
                 </a>
               </ListContent>
               <ListContent>
               <Image
-                src="/icons/profile.svg"
+                src="/icons/about.svg"
                 height={20}
                 width={20} 
                 alt="Your Name"
                 />
               <a href='#about'>
-              <TextComponent textType={TextType.HEADING_FIVE} alignment="left" color='white'>
+              <TextComponent textType={TextType.HEADING_FIVE}  color='white'>
                 About
               </TextComponent>
               </a>
               </ListContent>
               <ListContent>
               <Image
-                src="/icons/profile.svg"
+                src="/icons/skills.svg"
                 height={20}
                 width={20} 
                 alt="Your Name"
                 />
               <a href='#skills'>
-              <TextComponent textType={TextType.HEADING_FIVE} alignment="left" color='white'>
+              <TextComponent textType={TextType.HEADING_FIVE}  color='white'>
                 Skills
               </TextComponent>
               </a>
-              </ListContent>
-              <ListContent>
-              <Image
-                src="/icons/cap.svg"
-                height={20}
-                width={20} 
-                alt="Your Name"
-                />
-              <TextComponent textType={TextType.HEADING_FIVE} alignment="left" color='white'>
-                Resume
-              </TextComponent>
               </ListContent>
               <ListContent>
               <Image
@@ -227,9 +350,11 @@ const Home: NextPage<Props> = () => {
                 width={20} 
                 alt="Your Name"
                 />
-              <TextComponent textType={TextType.HEADING_FIVE} alignment="left" color='white'>
+              <a href='#works'>
+              <TextComponent textType={TextType.HEADING_FIVE}  color='white'>
                 Works
               </TextComponent>
+              </a>
               </ListContent>
               <ListContent>
               <Image
@@ -238,13 +363,53 @@ const Home: NextPage<Props> = () => {
                 width={20} 
                 alt="Your Name"
                 />
-              <TextComponent textType={TextType.HEADING_FIVE} alignment="left" color='white'>
+              <TextComponent textType={TextType.HEADING_FIVE}  color='white'>
                 Contact
               </TextComponent>
               </ListContent>
             </ListContainer>
           </MenuContent>
+          <SocialIcons>
+          <Image
+           src="/icons/github.svg"
+           height={20}
+           width={20}
+           alt="Your Name"
+           onClick={()=>
+            window.open(
+              "https://github.com/jizzus-source",
+              "_blank"
+            )
+            }
+          />
+          <Image
+           src="/icons/linkedin.svg"
+           height={20}
+           width={20}
+           alt="Your Name"
+           onClick={()=>
+            window.open(
+              "https://www.linkedin.com/in/jesus-pareja-50baa823b/",
+              "_blank"
+            )
+            }
+          /> 
+          <Image
+          src="/icons/whatsapp.svg"
+          height={20}
+          width={20}
+          alt="Your Name"
+          onClick={()=>
+            window.open(
+              "https://api.whatsapp.com/send?phone=%2B573006750561&text=",
+              "_blank"
+            )
+            }
+         />
+          </SocialIcons>
         </MenuContainer>
+      <MainBody>
+        
 
 
         <PortfolioContainer id='home'>
@@ -299,7 +464,7 @@ const Home: NextPage<Props> = () => {
             </PortfolioWhiteContent>
             <BottonContainer>
               <BottonBlue>
-              <a href='../icons/cv.pdf' target="_blank" rel="noopener noreferrer" download={"cv.pdf"}>
+              <a href='../icons/cv-Jesus-Pareja.pdf' target="_blank" rel="noopener noreferrer" download={"cv.pdf"}>
               <TextComponent textType={TextType.BODY_MEDIUM} alignment="center" color='#d9d9d9'>
                 Download CV
               </TextComponent>
@@ -385,7 +550,131 @@ I have plenty experience working with databases based on Node.JS and backend con
             </SkillContent>
             </PortfolioWhiteContent>
           </PortfolioCardWhite>
+
+          <PortfolioCardWhite id='works'>
+            <PortfolioTitle>
+              <TextComponent  textType={TextType.HEADING_TWO} alignment="left" color='black'>
+                Works
+              </TextComponent>
+              <TitleUnderlined/>
+            </PortfolioTitle>
+            <PortfolioWhiteContentWorks>
+              <WorksContainer>
+                <WorksCard onClick={()=>
+                window.open(
+                  "https://www.marketplace.atuarental.com/",
+                  "_blank"
+                )
+                }>
+                <TextComponent  textType={TextType.HEADING_FOUR} alignment="left" color='black'>
+                  Atua Marketplace
+                </TextComponent>
+                <Image
+                  src="/atua.png"
+                  height={150}
+                  width={150} 
+                  alt="Your Name"
+                  />
+                </WorksCard>
+                <WorksCard onClick={()=>
+                window.open(
+                  "https://the-nod.vercel.app/",
+                  "_blank"
+                )
+                }>
+                <TextComponent  textType={TextType.HEADING_FOUR} alignment="left" color='black'>
+                  The Nod
+                </TextComponent>
+                <Image
+                  src="/the-nod.png"
+                  height={150}
+                  width={150} 
+                  alt="Your Name"
+                  />
+                </WorksCard>
+                <WorksCard onClick={()=>
+                window.open(
+                  "https://laki-lac.vercel.app/",
+                  "_blank"
+                )
+                }>
+                <TextComponent  textType={TextType.HEADING_FOUR} alignment="left" color='black'>
+                  Laki
+                </TextComponent>
+                <Image
+                  src="/laki.png"
+                  height={150}
+                  width={150} 
+                  alt="Your Name"
+                  />
+                </WorksCard>
+                <WorksCard>
+                <TextComponent  textType={TextType.HEADING_FOUR} alignment="left" color='black'>
+                  Bloki
+                </TextComponent>
+                <Image
+                  src="/bloki.png"
+                  height={150}
+                  width={150} 
+                  alt="Your Name"
+                  />
+                </WorksCard>
+              </WorksContainer>
+            </PortfolioWhiteContentWorks>
+          </PortfolioCardWhite>
           
+          <PortfolioCardWhite id='skills'>
+            <PortfolioTitle>
+              <TextComponent  textType={TextType.HEADING_TWO} alignment="left" color='black'>
+                Get in touch
+              </TextComponent>
+              <TitleUnderlined/>
+            </PortfolioTitle>
+            <PortfolioWhiteContent>
+            
+                <Form onSubmit={handleOnSubmit} className="form-container" >
+                  <Form.Group className='form-group'>
+                  <Form.Field
+                  id="data-inputs"
+                  control={Input}
+                  name="from_email"
+                  placeholder="Email…"
+                  required
+                  className='form-input'
+                />
+                <Form.Field
+                  id="data-inputs"
+                  control={Input}
+                  name="from_name"
+                  placeholder="Name…"
+                  required
+                  className='form-input'
+                />
+
+                <Form.Field
+                  id="form-textarea"
+                  control={TextArea}
+                  name="from_subject"
+                  placeholder="Subject…"
+                  required
+                  className='form-messages'
+                />
+                <Form.Field
+                  id="form-textarea"
+                  control={TextArea}
+                  name="message"
+                  placeholder="Message…"
+                  required
+                  className='form-messages'
+                />
+                  </Form.Group>
+                <Button className='submit-button' type="submit">Submit</Button>
+                
+                </Form>
+              
+            </PortfolioWhiteContent>
+
+          </PortfolioCardWhite>
                     
         </PortfolioContainer>
       </MainBody>
