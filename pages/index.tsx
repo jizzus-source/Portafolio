@@ -638,7 +638,7 @@ I have plenty experience working with databases based on Node.JS and backend con
                   id="data-inputs"
                   control={Input}
                   name="from_email"
-                  placeholder="Email…"
+                  placeholder="Emal…"
                   required
                   className='form-input'
                 />
