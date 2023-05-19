@@ -48,7 +48,7 @@ const MainBody = styled.div`
 `;
 const MenuContainer = styled.div.attrs((props: { open: boolean }) => props)`
 background-color:#1732b5;
-max-height:55vh;
+max-height:65vh;
 border-radius: ${SIZES.ONE};
 top: ${SIZES.FIVE};
 position:relative;
@@ -230,7 +230,7 @@ flex-direction:column;
 justify-content: center;
 `;
 const SkillContent = styled.div`
-margin-top:1rem;
+margin-top:0rem;
 display:flex;
 flex-direction:column;
 width:80%;
@@ -240,7 +240,7 @@ display:flex;
 flex-direction:row;
 justify-content: center;
 flex-wrap: wrap;
-gap:20px;
+gap:10px;
 @media ${SCREEN_SIZE_RANGES.MOBILE}{
   display:flex;
   flex-direction:column;
@@ -363,9 +363,11 @@ const Home: NextPage<Props> = () => {
                 width={20} 
                 alt="Your Name"
                 />
+                <a href='#contact'>
               <TextComponent textType={TextType.HEADING_FIVE}  color='white'>
                 Contact
               </TextComponent>
+              </a>
               </ListContent>
             </ListContainer>
           </MenuContent>
@@ -416,10 +418,10 @@ const Home: NextPage<Props> = () => {
           <PortfolioCardBlue >
             <PortfolioContent>
             <TextComponent textType={TextType.HEADING_ONE} alignment="left" color='white'>
-                I´m Jesus Pareja
+            Hello 
           </TextComponent>
           <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='white'>
-          He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.
+          I´m Jesus Pareja, a independent web developer from Barranquilla, Colombia
           </TextComponent>
             </PortfolioContent>
           </PortfolioCardBlue>
@@ -439,10 +441,18 @@ const Home: NextPage<Props> = () => {
             />
             <AboutContent>
               <TextComponent  textType={TextType.HEADING_TWO} alignment="left" color='black' >
-                Hello
+                
               </TextComponent>
               <TextComponent  textType={TextType.BODY_MEDIUM} alignment="left" color='#606060'>
-                I am Jesus Pareja a web developer from Barranquilla, Colombia. I have plenty experience in web site develop, design and constumization, also im good on wix and wordpress 
+                Solution-driven Front-end developer adept at contributing to highly
+collaborative work environment, finding solutions and determining
+customer satisfaction. Proven experience developing consumer-focused
+websites using HTML, CSS, JavaScript,React, Next . Built products for
+desktop and mobile app users over 2+ years, meeting highest standards
+for web design, user experience, best practices and speed. Designed and
+developed web applications across multiple APIs, third-party integrations
+and databases.
+ 
               </TextComponent>
               <AboutData>
               <TextComponent  textType={TextType.BODY_MEDIUM} alignment="left" color='#606060' display='flex' direction='row' gap='5px'>
@@ -464,7 +474,7 @@ const Home: NextPage<Props> = () => {
             </PortfolioWhiteContent>
             <BottonContainer>
               <BottonBlue>
-              <a href='../icons/cv-Jesus-Pareja.pdf' target="_blank" rel="noopener noreferrer" download={"cv.pdf"}>
+              <a href='../icons/Jesus-Pareja-cv.pdf' target="_blank" rel="noopener noreferrer" download={"cv.pdf"}>
               <TextComponent textType={TextType.BODY_MEDIUM} alignment="center" color='#d9d9d9'>
                 Download CV
               </TextComponent>
@@ -503,6 +513,10 @@ I have plenty experience working with databases based on Node.JS and backend con
                       <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#b3b3b3'>90%</TextComponent>
                     </TextComponent>  
                     <LinearProgress variant='determinate' value={90} />
+                    <TextComponent textType={TextType.BODY_SMALL}color='#606060' >
+                      
+Thorough knowledge of HTML implementation in different work areas and full understanding of CSS usage in required areas
+                    </TextComponent>
                   </SkillData>
                   <SkillData>
                     <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#606060' display='flex' direction='row' content='space-between'>
@@ -510,6 +524,7 @@ I have plenty experience working with databases based on Node.JS and backend con
                       <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#b3b3b3'>80%</TextComponent>
                     </TextComponent>  
                     <LinearProgress variant='determinate' value={80} />
+                    Practical use of the tools in JavaScript complemented with the ability to combine it with different frameworks
                   </SkillData>
                   <SkillData>
                     <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#606060' display='flex' direction='row' content='space-between'>
@@ -517,6 +532,10 @@ I have plenty experience working with databases based on Node.JS and backend con
                       <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#b3b3b3'>80%</TextComponent>
                     </TextComponent>  
                     <LinearProgress variant='determinate' value={80} />
+                    <TextComponent textType={TextType.BODY_SMALL}color='#606060' >
+                      
+                      Complete knowledge of the use of React and its implementation in projects in a versatile way making use of its tools
+                      </TextComponent>
                   </SkillData>
                   <SkillData>
                     <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#606060' display='flex' direction='row' content='space-between'>
@@ -525,7 +544,9 @@ I have plenty experience working with databases based on Node.JS and backend con
                       
                     </TextComponent>  
                     <LinearProgress variant='determinate' value={90} />
-                    
+                    <TextComponent textType={TextType.BODY_SMALL}color='#606060' >
+                      
+                    Specialization in releases and tests using the tools provided by NextJs                       </TextComponent>
                   </SkillData>
                   <SkillData>
                     <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#606060' display='flex' direction='row' content='space-between'>
@@ -534,7 +555,9 @@ I have plenty experience working with databases based on Node.JS and backend con
                       
                     </TextComponent>  
                     <LinearProgress variant='determinate' value={40} />
-                    
+                    <TextComponent textType={TextType.BODY_SMALL}color='#606060' >
+                      
+                    Intermediate knowledge of python tools and their implementation to simplify tasks                      </TextComponent>
                   </SkillData>
                   <SkillData>
                     <TextComponent textType={TextType.BODY_MEDIUM_BIG} alignment="left" color='#606060' display='flex' direction='row' content='space-between'>
@@ -543,7 +566,10 @@ I have plenty experience working with databases based on Node.JS and backend con
                       
                     </TextComponent>  
                     <LinearProgress variant='determinate' value={55}/>
-                    
+                    <TextComponent textType={TextType.BODY_SMALL}color='#606060' >
+                      
+                    Intermediate knowledge of python tools and their implementation to simplify tasks
+                    </TextComponent>
                   </SkillData>
               </AboutData>
           
@@ -623,7 +649,7 @@ I have plenty experience working with databases based on Node.JS and backend con
             </PortfolioWhiteContentWorks>
           </PortfolioCardWhite>
           
-          <PortfolioCardWhite id='skills'>
+          <PortfolioCardWhite id='contact'>
             <PortfolioTitle>
               <TextComponent  textType={TextType.HEADING_TWO} alignment="left" color='black'>
                 Get in touch
@@ -638,7 +664,7 @@ I have plenty experience working with databases based on Node.JS and backend con
                   id="data-inputs"
                   control={Input}
                   name="from_email"
-                  placeholder="Emal…"
+                  placeholder="Email…"
                   required
                   className='form-input'
                 />
@@ -652,9 +678,9 @@ I have plenty experience working with databases based on Node.JS and backend con
                 />
 
                 <Form.Field
-                  id="form-textarea"
+                  id="form-subject"
                   control={TextArea}
-                  name="from_subject"
+                  name="Subject"
                   placeholder="Subject…"
                   required
                   className='form-messages'
@@ -672,7 +698,7 @@ I have plenty experience working with databases based on Node.JS and backend con
                 
                 </Form>
               
-            </PortfolioWhiteContent>
+            </PortfolioWhiteContent >
 
           </PortfolioCardWhite>
                     
