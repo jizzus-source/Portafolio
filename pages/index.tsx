@@ -588,7 +588,7 @@ Thorough knowledge of HTML implementation in different work areas and full under
               <WorksContainer>
                 <WorksCard onClick={()=>
                 window.open(
-                  "https://www.marketplace.atuarental.com/",
+                  "https://www.atuarental.com/",
                   "_blank"
                 )
                 }>
